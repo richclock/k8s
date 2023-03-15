@@ -1,0 +1,7 @@
+https://stackoverflow.com/questions/61791269/how-to-modify-the-nodeport-range-when-using-docker-desktop
+
+docker run -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh
+
+vi /etc/kubernetes/manifests/kube-apiserver.yaml
+
+- --service-node-port-range=80-36000
