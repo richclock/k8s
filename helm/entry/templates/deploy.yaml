@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: entry
+  labels:
+    app: entry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: entry
+  template:
+    metadata:
+      labels:
+        app: entry
+    spec:
+      containers:
+      - name: entry
+        image: {{.Values.image.repository}}
+        imagePullPolicy: {{.Values.image.pullPolicy}}
+        ports:
+        - containerPort: {{.Values.service.port}}
+        env:
+          - name: PORT
+            value: "{{.Values.service.port}}"
+          - name: JWT_SECRET
+            value: {{.Values.env.jwtSecret}}
+          - name: DB_URL
+            value: {{.Values.env.dbUrl}}
+          - name: ETCD_SERVER
+            value: {{.Values.env.etcdServer}}
+          - name: REACT_APP_API_URL
+            value: {{.Values.env.reactAppApiUrl}}
+          - name: REACT_APP_MQTT_URL
+            value: {{.Values.env.reactAppMqttUrl}}
+          - name: SKIP_PREFLIGHT_CHECK
+            value: "true"

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fermentation
+  labels:
+    app: fermentation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fermentation
+  template:
+    metadata:
+      labels:
+        app: fermentation
+    spec:
+      containers:
+      - name: fermentation
+        image: {{.Values.image.repository}}
+        imagePullPolicy: {{.Values.image.pullPolicy}}
+        ports:
+        - containerPort: {{.Values.service.port}}
+        env:
+          - name: PORT
+            value: "{{.Values.service.port}}"
+          - name: JWT_SECRET
+            value: {{.Values.env.jwtSecret}}
+          - name: DB_URL
+            value: {{.Values.env.dbUrl}}
+          - name: ETCD_SERVER
+            value: {{.Values.env.etcdServer}}
+          - name: REACT_APP_API_URL
+            value: {{.Values.env.reactAppApiUrl}}
+          - name: REACT_APP_MQTT_URL
+            value: {{.Values.env.reactAppMqttUrl}}
+          - name: SKIP_PREFLIGHT_CHECK
+            value: "true"
+          - name: ENTRY_API_URL
+            value: {{.Values.env.entryApiUrl}}
