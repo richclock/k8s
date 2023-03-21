@@ -35,3 +35,5 @@ spec:
             value: {{.Values.env.reactAppMqttUrl}}
           - name: SKIP_PREFLIGHT_CHECK
             value: "true"
+        command: ["/bin/sh","-c"]
+        args: ["cd client; npx react-inject-env set; cd ..; npm start"]

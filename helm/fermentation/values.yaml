@@ -11,6 +11,7 @@ image:
   tag: "0.0.1"
 
 env:
+  host: "192.168.1.192"
   jwtSecret: Expetech90281451
   dbUrl: mongodb://admin:itrid200@10.107.94.10:27017/express?authSource=admin
   etcdServer: 10.98.100.60:2379

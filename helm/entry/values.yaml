@@ -15,7 +15,7 @@ env:
   dbUrl: mongodb+srv://admin:itrid200@entry.ogbzh42.mongodb.net/entry?retryWrites=true&w=majority
   etcdServer: 10.98.100.60:2379
   reactAppApiUrl: http://192.168.1.192:5000/api
-  reactAppMqttUrl: ws:localhost:9001/mqtt
+  reactAppMqttUrl: ws:192.168.1.192:9001/mqtt
 
 
 
