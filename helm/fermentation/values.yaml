@@ -13,9 +13,9 @@ image:
 env:
   host: "192.168.1.192"
   jwtSecret: Expetech90281451
-  dbUrl: mongodb://admin:itrid200@10.107.94.10:27017/express?authSource=admin
-  etcdServer: 10.98.100.60:2379
-  reactAppApiUrl: http://192.168.1.192:5001/api
+  dbUrl: mongodb://admin:itrid200@10.108.31.235:27017/express?authSource=admin
+  etcdServer: 10.110.119.196:2379
+  reactAppApiUrl: http://192.168.1.192:5100/api
   reactAppMqttUrl: ws:192.168.1.192:9001/mqtt
   entryApiUrl: http://192.168.1.192:5000/api
 
@@ -23,4 +23,4 @@ env:
 
 service:
   type: NodePort
-  port: 5001
+  port: 5100
