@@ -18,5 +18,6 @@ service:
 pv:
   spec:
     hostPath:
-      path: /run/desktop/mnt/host/c/DockerVolumes/mongo
+      path: /run/desktop/mnt/host/c/DockerVolumes/mongo  #docker desktop
+      # path: /mnt/c/DockerVolumes/mongo                     #wsl ubuntu
 

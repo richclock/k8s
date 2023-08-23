@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: richclock/fermentation
+  repository: richclock/ems
   pullPolicy: Never
   # Overrides the image tag whose default is the chart appVersion.
   tag: "0.0.1"
@@ -13,9 +13,9 @@ image:
 env:
   host: "192.168.1.192"
   jwtSecret: Expetech90281451
-  dbUrl: mongodb://admin:itrid200@10.108.31.235:27017/express?authSource=admin
+  dbUrl: mongodb://admin:itrid200@10.104.24.182:27017/ems?authSource=admin
   etcdServer: 10.100.116.73:2379
-  reactAppApiUrl: http://192.168.1.192:5100/api
+  reactAppApiUrl: http://192.168.1.192:5200/api
   reactAppMqttUrl: ws:192.168.1.192:9001/mqtt
   entryApiUrl: http://192.168.1.192:5000/api
 
@@ -23,4 +23,4 @@ env:
 
 service:
   type: NodePort
-  port: 5100
+  port: 5200

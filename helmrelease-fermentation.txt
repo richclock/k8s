@@ -1,0 +1,111 @@
+NAME: fermentation
+LAST DEPLOYED: Mon Apr 17 10:53:35 2023
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+USER-SUPPLIED VALUES:
+null
+
+COMPUTED VALUES:
+env:
+  dbUrl: mongodb://admin:itrid200@10.108.31.235:27017/express?authSource=admin
+  entryApiUrl: http://192.168.1.192:5000/api
+  etcdServer: 10.101.169.238:2379
+  host: 192.168.1.192
+  jwtSecret: Expetech90281451
+  reactAppApiUrl: http://192.168.1.192:5100/api
+  reactAppMqttUrl: ws:192.168.1.192:9001/mqtt
+image:
+  pullPolicy: Never
+  repository: richclock/fermentation
+  tag: 0.0.1
+replicaCount: 1
+service:
+  port: 5100
+  type: NodePort
+
+HOOKS:
+---
+# Source: fermentation/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "fermentation-test-connection"
+  labels:
+    helm.sh/chart: fermentation-0.1.0
+    app.kubernetes.io/name: fermentation
+    app.kubernetes.io/instance: fermentation
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['fermentation:5100']
+  restartPolicy: Never
+MANIFEST:
+---
+# Source: fermentation/templates/svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: fermentation
+spec:
+  selector:
+    app: fermentation
+  ports:
+    - name: fermentation
+      port: 5100
+      targetPort: 5100
+      nodePort: 5100
+      protocol: TCP
+  type: NodePort
+---
+# Source: fermentation/templates/deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fermentation
+  labels:
+    app: fermentation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fermentation
+  template:
+    metadata:
+      labels:
+        app: fermentation
+    spec:
+      containers:
+        - name: fermentation
+          image: richclock/fermentation
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5100
+          env:
+            - name: PORT
+              value: "5100"
+            - name: HOST
+              value: "192.168.1.192"
+            - name: JWT_SECRET
+              value: Expetech90281451
+            - name: DB_URL
+              value: mongodb://admin:itrid200@10.108.31.235:27017/express?authSource=admin
+            - name: ETCD_SERVER
+              value: 10.101.169.238:2379
+            - name: REACT_APP_API_URL
+              value: http://192.168.1.192:5100/api
+            - name: REACT_APP_MQTT_URL
+              value: ws:192.168.1.192:9001/mqtt
+            - name: SKIP_PREFLIGHT_CHECK
+              value: "true"
+            - name: ENTRY_API_URL
+              value: http://192.168.1.192:5000/api
+          command: ["/bin/sh","-c"]
+          args: ["cd client; npx react-inject-env set; cd ..; npm start"]
+

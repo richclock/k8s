@@ -35,5 +35,11 @@ spec:
             value: {{.Values.env.reactAppMqttUrl}}
           - name: SKIP_PREFLIGHT_CHECK
             value: "true"
+        readinessProbe: #檢測container是否正常的探測設定
+            httpGet: 
+              path: "/" #指定http route
+              port: {{.Values.service.port}}
+            initialDelaySeconds: 10 #啟動container延遲幾秒後探測pod健康度
+            periodSeconds: 10 #每幾秒做一次
         command: ["/bin/sh","-c"]
         args: ["cd client; npx react-inject-env set; cd ..; npm start"]

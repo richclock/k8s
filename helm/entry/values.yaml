@@ -12,8 +12,8 @@ image:
 
 env:
   jwtSecret: Expetech90281451
-  dbUrl: mongodb://admin:itrid200@10.108.31.235:27017/express?authSource=admin
-  etcdServer: 10.110.119.196:2379
+  dbUrl: mongodb://admin:itrid200@10.104.24.182:27017/express?authSource=admin
+  etcdServer: 10.100.116.73:2379
   reactAppApiUrl: http://192.168.1.192:5000/api
   reactAppMqttUrl: ws:192.168.1.192:9001/mqtt
 
