@@ -39,8 +39,8 @@ spec:
               value: "true"
             - name: ENTRY_API_URL
               value: {{ .Values.env.entryApiUrl }}
-          # command: ["/bin/sh","-c"]
-          # args: ["cd client; npx react-inject-env set; cd ..; npm start"]
+          command: ["/bin/sh","-c"]
+          args: ["cd client; npx react-inject-env set; cd ..; cp -r ./client/build/* ./server/wwwroot; npm start"]
 
     
 
