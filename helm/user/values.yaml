@@ -1,0 +1,26 @@
+# Default values for user.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: richclock/user
+  pullPolicy: Never
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "0.0.1"
+
+env:
+  host: "192.168.1.192"
+  jwtSecret: Expetech90281451
+  dbUrl: mongodb://admin:itrid200@10.104.24.182:27017/express?authSource=admin
+  etcdServer: 10.100.116.73:2379
+  reactAppApiUrl: http://192.168.1.192:5001/api
+  reactAppMqttUrl: ws:192.168.1.192:9001/mqtt
+  entryApiUrl: http://192.168.1.192:5000/api
+
+
+
+service:
+  type: NodePort
+  port: 5001
